@@ -1,43 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('product', {
+  return sequelize.define('favorites', {
     id: {
       autoIncrement: true,
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    brand_id: {
+    product_id: {
       type: DataTypes.BIGINT,
-      allowNull: true
-    },
-    quantity: {
-      type: DataTypes.BIGINT,
-      allowNull: true
-    },
-    stock: {
-      type: DataTypes.BIGINT,
-      allowNull: true
-    },
-    price: {
-      type: DataTypes.DECIMAL(10,2),
-      allowNull: true
-    },
-    shop_id: {
-      type: DataTypes.BIGINT,
-      allowNull: true,
+      allowNull: false,
       references: {
-        model: 'shop_details',
+        model: 'product',
+        key: 'id'
+      }
+    },
+    user_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: 'user',
         key: 'id'
       }
     }
   }, {
     sequelize,
-    tableName: 'product',
+    tableName: 'favorites',
     timestamps: false,
     indexes: [
       {
@@ -49,10 +37,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "shop_id",
+        name: "product_id",
         using: "BTREE",
         fields: [
-          { name: "shop_id" },
+          { name: "product_id" },
+        ]
+      },
+      {
+        name: "user_id",
+        using: "BTREE",
+        fields: [
+          { name: "user_id" },
         ]
       },
     ]

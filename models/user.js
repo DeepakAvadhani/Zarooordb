@@ -1,22 +1,18 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  return sequelize.define('user', {
     id: {
       autoIncrement: true,
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true
     },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    email_id: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    pincode: {
-      type: DataTypes.BIGINT,
       allowNull: false
     },
     password: {
@@ -24,12 +20,16 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     phone_number: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
+    pincode: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'users',
+    tableName: 'user',
     timestamps: false,
     indexes: [
       {
